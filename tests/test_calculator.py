@@ -1,25 +1,39 @@
 import pytest
+from faker import Faker
 from calculator.calculator import Calculator
 
+fake = Faker()
+
 def test_add():
-    assert Calculator.add(1, 2) == 3
+    a = fake.random_number()
+    b = fake.random_number()
+    assert Calculator.add(a, b) == a + b
 
 def test_subtract():
-    assert Calculator.subtract(4, 2) == 2
+    a = fake.random_number()
+    b = fake.random_number()
+    assert Calculator.subtract(a, b) == a - b
 
 def test_multiply():
-    assert Calculator.multiply(2, 3) == 6
+    a = fake.random_number()
+    b = fake.random_number()
+    assert Calculator.multiply(a, b) == a * b
 
 def test_divide():
-    assert Calculator.divide(6, 2) == 3
+    a = fake.random_number()
+    b = fake.random_number()
+    assert Calculator.divide(a, b) == a / b
 
 def test_divide_by_zero():
+    a = fake.random_number()
     with pytest.raises(ValueError):
-        Calculator.divide(1, 0)
+        Calculator.divide(a, 0)
 
 def test_get_last_calculation():
-    Calculator.add(2, 3)
-    assert Calculator.get_last_calculation() == ('add', 2, 3, 5)
+    a = fake.random_number()
+    b = fake.random_number()
+    Calculator.add(a, b)
+    assert Calculator.get_last_calculation() == ('add', a, b, a + b)
 
 def test_clear_history():
     Calculator.clear_history()
